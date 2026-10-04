@@ -1,0 +1,5 @@
+APP_NAME = "Türkiye Kameraları"
+APP_ID = "TurkiyeKameralari"
+APP_VERSION = "1.0.0"
+DEVELOPER = "Mete Şahan"
+FOOTER_TEXT = "Mete Şahan Tarafından Geliştirilmiştir 2026"

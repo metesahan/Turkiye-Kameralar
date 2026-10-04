@@ -1,0 +1,110 @@
+{
+  "version": 1,
+  "cameras": [
+    {
+      "name": "ANADOLU HİSARI",
+      "url": "https://kamerayayin.ibb.istanbul/turistikcam/anadoluhisari.stream/playlist.m3u8",
+      "lat": 41.0823,
+      "lon": 29.0669,
+      "id": "anadolu-hisari"
+    },
+    {
+      "name": "BEYAZIT KULESİ",
+      "url": "https://kamerayayin.ibb.istanbul/turistikcam/beyazitkulesi2.stream/chunklist_w1670320938.m3u8",
+      "lat": 41.0122,
+      "lon": 28.9636,
+      "id": "beyazit-kulesi"
+    },
+    {
+      "name": "BEYAZIT MEYDANI",
+      "url": "https://kamerayayin.ibb.istanbul/turistikcam/beyazitmeydan.stream/chunklist_w325056687.m3u8",
+      "lat": 41.0105,
+      "lon": 28.964,
+      "id": "beyazit-meydani"
+    },
+    {
+      "name": "BÜYÜK ÇAMLICA",
+      "url": "https://kamerayayin.ibb.istanbul/turistikcam/buyukcamlica.stream/chunklist_w1610757817.m3u8",
+      "lat": 41.0272,
+      "lon": 29.0686,
+      "id": "buyuk-camlica"
+    },
+    {
+      "name": "EMİNÖNÜ",
+      "url": "https://kamerayayin.ibb.istanbul/turistikcam/eminonu.stream/playlist.m3u8",
+      "lat": 41.0171,
+      "lon": 28.9706,
+      "id": "eminonu"
+    },
+    {
+      "name": "EMİRGAN",
+      "url": "https://kamerayayin.ibb.istanbul/turistikcam/emirgan.stream/playlist.m3u8",
+      "lat": 41.1086,
+      "lon": 29.0553,
+      "id": "emirgan"
+    },
+    {
+      "name": "EYÜP SULTAN",
+      "url": "https://kamerayayin.ibb.istanbul/turistikcam/eyupsultan.stream/chunklist_w965134970.m3u8",
+      "lat": 41.0479,
+      "lon": 28.9339,
+      "id": "eyup-sultan"
+    },
+    {
+      "name": "HİDİV KASRI",
+      "url": "https://kamerayayin.ibb.istanbul/turistikcam/hidivkasri.stream/chunklist_w891731548.m3u8",
+      "lat": 41.1092,
+      "lon": 29.0647,
+      "id": "hidiv-kasri"
+    },
+    {
+      "name": "KIZ KULESİ",
+      "url": "https://kamerayayin.ibb.istanbul/turistikcam/kizkulesi.stream/playlist.m3u8",
+      "lat": 41.0211,
+      "lon": 29.0041,
+      "id": "kiz-kulesi"
+    },
+    {
+      "name": "PIERRE LOTI",
+      "url": "https://kamerayayin.ibb.istanbul/turistikcam/pierreloti.stream/playlist.m3u8",
+      "lat": 41.0537,
+      "lon": 28.9336,
+      "id": "pierre-loti"
+    },
+    {
+      "name": "SALACAK",
+      "url": "https://kamerayayin.ibb.istanbul/turistikcam/salacak.stream/playlist.m3u8",
+      "lat": 41.0228,
+      "lon": 29.0083,
+      "id": "salacak"
+    },
+    {
+      "name": "SARAÇHANE",
+      "url": "https://kamerayayin.ibb.istanbul/turistikcam/sarachane.stream/playlist.m3u8",
+      "lat": 41.0145,
+      "lon": 28.955,
+      "id": "sarachane"
+    },
+    {
+      "name": "SULTANAHMET",
+      "url": "https://kamerayayin.ibb.istanbul/turistikcam/sultanahmet2.stream/playlist.m3u8",
+      "lat": 41.0054,
+      "lon": 28.9768,
+      "id": "sultanahmet"
+    },
+    {
+      "name": "TAKSİM MEYDAN",
+      "url": "https://kamerayayin.ibb.istanbul/turistikcam/taksim.stream/playlist.m3u8",
+      "lat": 41.037,
+      "lon": 28.985,
+      "id": "taksim-meydan"
+    },
+    {
+      "name": "ULUS PARKI",
+      "url": "https://kamerayayin.ibb.istanbul/turistikcam/ulusparki.stream/playlist.m3u8",
+      "lat": 41.0623,
+      "lon": 29.036,
+      "id": "ulus-parki"
+    }
+  ]
+}

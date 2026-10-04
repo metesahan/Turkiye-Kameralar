@@ -1,0 +1,10 @@
+PyQt6>=6.6
+opencv-python>=4.9
+ultralytics>=8.1
+torch>=2.2
+torchvision>=0.17
+supervision>=0.26
+trackers>=2.6
+scipy>=1.11
+requests>=2.31
+numpy>=1.26

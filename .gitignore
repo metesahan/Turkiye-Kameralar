@@ -1,0 +1,13 @@
+.venv/
+__pycache__/
+*.pyc
+build/
+dist/
+*.app/
+*.zip
+.DS_Store
+settings.json
+error.log
+models/*.pt
+models/*.onnx
+assets/icon.iconset/
