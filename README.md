@@ -1,8 +1,71 @@
-# Türkiye Kameraları
+<p align="center">
+  <img src="assets/icon.png" width="120" alt="Türkiye Kameraları simgesi">
+</p>
 
-İstanbul'daki İBB turistik kameralarını canlı izleyen, yapay zekâ ile insan, araç, gemi ve sokak hayvanlarını tespit edip takip eden masaüstü uygulaması.
+<h1 align="center">Türkiye Kameraları</h1>
 
-Mete Şahan Tarafından Geliştirilmiştir 2026
+<p align="center">
+  İstanbul'un canlı şehir kameralarını tek ekranda izleyen, yapay zekâ ile insan, araç, gemi ve sokak hayvanlarını
+  tespit edip takip eden masaüstü uygulaması.
+  <br>macOS ve Windows'ta kendi penceresinde çalışır. Karanlık ve aydınlık tema desteklenir.
+</p>
+
+<p align="center">
+  <a href="https://github.com/metesahan/Turkiye-Kameralar/releases/latest/download/Turkiye-Kameralari-macOS.zip"><b>⬇ macOS için indir</b></a>
+  &nbsp;&nbsp;·&nbsp;&nbsp;
+  <a href="https://github.com/metesahan/Turkiye-Kameralar/releases/latest/download/Turkiye-Kameralari-Windows.zip"><b>⬇ Windows için indir</b></a>
+  &nbsp;&nbsp;·&nbsp;&nbsp;
+  <a href="https://github.com/metesahan/Turkiye-Kameralar/releases/latest">Tüm sürümler</a>
+</p>
+
+![Kameralar](docs/screenshots/01-kameralar.jpg)
+
+---
+
+## İçindekiler
+
+- [İndirme ve kurulum](#i̇ndirme-ve-kurulum)
+- [Ekran görüntüleri](#ekran-görüntüleri)
+- [Özellikler](#özellikler)
+- [Yapay zekâ altyapısı](#yapay-zekâ-altyapısı)
+- [Kaynak koddan çalıştırma](#kaynak-koddan-çalıştırma)
+- [Proje yapısı](#proje-yapısı)
+- [Yeni sürüm yayınlama](#yeni-sürüm-yayınlama)
+
+---
+
+## İndirme ve kurulum
+
+Yukarıdaki bağlantılara tıklayınca dosya doğrudan iner. Python ya da başka bir kurulum gerekmez; yapay zekâ modelleri uygulamanın içindedir.
+
+| Sistem | Dosya | Ne yapmalı |
+|---|---|---|
+| macOS (Apple Silicon: M1/M2/M3/M4) | [`Turkiye-Kameralari-macOS.zip`](https://github.com/metesahan/Turkiye-Kameralar/releases/latest/download/Turkiye-Kameralari-macOS.zip) | Zip'i aç, `Türkiye Kameraları.app`'i **Uygulamalar** klasörüne sürükle, çift tıkla. |
+| Windows 10/11 | [`Turkiye-Kameralari-Windows.zip`](https://github.com/metesahan/Turkiye-Kameralar/releases/latest/download/Turkiye-Kameralari-Windows.zip) | Zip'e sağ tıkla → **Tümünü ayıkla**. Çıkan `Turkiye Kameralari` klasöründeki `TurkiyeKameralari.exe`'ye çift tıkla. Klasördeki diğer dosyaları silme. |
+
+**İlk açılışta uyarı çıkarsa:** Uygulama Apple ve Microsoft tarafından imzalanmadığı için internetten indirildiğinde bir kez uyarı gösterilir.
+
+- **macOS:** "Türkiye Kameraları açılamıyor" uyarısında **Bitti**'ye bas. Sonra **Sistem Ayarları → Gizlilik ve Güvenlik** sayfasının en altındaki **Yine de Aç** düğmesine bas. Bu işlem bir kez yapılır.
+- **Windows:** "Windows bilgisayarınızı korudu" ekranında **Ek bilgi → Yine de çalıştır**'a tıkla.
+
+**Notlar:**
+
+- **Boyut:** İndirme yaklaşık 300–400 MB'tır, çünkü yapay zekâ kütüphaneleri uygulamanın içinde gelir.
+- **Hızlandırma:** macOS'ta Apple Silicon grafik birimi (Metal) kullanılır. Windows sürümü işlemcide çalışır. NVIDIA kartlı Windows bilgisayarda CUDA hızlandırması için [kaynak koddan çalıştırma](#kaynak-koddan-çalıştırma) yöntemini kullan.
+- **Intel Mac:** Hazır macOS sürümü Intel Mac'te çalışmaz. Intel Mac'te kaynak koddan çalıştır.
+
+---
+
+## Ekran görüntüleri
+
+| | |
+|---|---|
+| ![Odak görünümü](docs/screenshots/02-odak.jpg) | ![Nesneye kilitlenme](docs/screenshots/03-kilitlenme.jpg) |
+| **Odak görünümü:** Tıklanan kamera ekranı kaplar; tespit edilen nesneler 1 px kutularla gösterilir. | **Nesneye kilitlenme:** Tıklanan kişiye 4,5× yakınlaşıp onu takip eder; hareket izi ve takip süresi görünür. |
+| ![Hava durumu](docs/screenshots/04-hava-durumu.jpg) | ![Aydınlık tema](docs/screenshots/05-aydinlik-tema.jpg) |
+| **Hava Durumu:** Kamera konumu ya da aranan şehir için anlık durum, saatlik grafik ve 7 günlük tahmin. | **Aydınlık tema:** Sol alttaki tek simgeyle karanlık ve aydınlık mod arasında geçilir. |
+| ![Ayarlar](docs/screenshots/06-ayarlar.jpg) | ![Açılış](docs/screenshots/00-acilis.jpg) |
+| **Ayarlar:** Kamera ekleme, düzenleme, silme ve konum belirleme. | **Açılış ekranı** |
 
 ---
 
@@ -26,7 +89,7 @@ Mete Şahan Tarafından Geliştirilmiştir 2026
 | Yakınlaştırınca tespit | Yakınlaştırıldığında model yalnızca görünen bölgeyi yüksek çözünürlükte işler (ROI). |
 | Akıcı görüntü | Yaklaşık 0,15 saniyelik gecikme tamponu kullanılır ve kutular tespitlerin arası doldurularak görüntüyle hizalanır. Görüntü 25 fps akar. |
 
-## Kurulum (geliştirici)
+## Kaynak koddan çalıştırma
 
 Python 3.11 veya üstü gerekir (3.14 ile test edildi).
 
@@ -42,7 +105,11 @@ python3 -m venv .venv
 curl -L -o models/vittrack.onnx "https://media.githubusercontent.com/media/opencv/opencv_zoo/main/models/object_tracking_vittrack/object_tracking_vittrack_2023sep.onnx"
 ```
 
-## Tek tıkla açılan uygulama oluşturma
+## Yeni sürüm yayınlama
+
+`main` dalına her gönderimde GitHub Actions ([`.github/workflows/release.yml`](.github/workflows/release.yml)) macOS ve Windows sürümlerini derler ve [Releases](https://github.com/metesahan/Turkiye-Kameralar/releases/latest) sayfasında yayınlar. Sürüm numarası `VERSION` dosyasından okunur (örn. `1.0.0` → `v1.0.0`). Yeni bir sürüm için `VERSION` dosyasındaki numarayı artırıp gönder; numara aynı kalırsa mevcut sürüm güncellenir.
+
+Kendi bilgisayarında derlemek için:
 
 **macOS:**
 

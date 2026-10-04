@@ -801,7 +801,7 @@ class VideoView(QWidget):
                 p.drawRect(aligned)
             if tracked and (locked or hovered or r.height() > 46):
                 label = f"{CLASS_LABELS.get(obj['cls'], '')}  {obj['id']}"
-                if hovered or locked:
+                if (hovered or locked) and obj["conf"] > 0:
                     label += f"  ·  %{round(obj['conf'] * 100)}"
                 p.setPen(QColor(245, 245, 247, 235 if (locked or hovered) else 140))
                 top = aligned.top() - (19 if locked else 15)

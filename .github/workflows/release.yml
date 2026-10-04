@@ -1,0 +1,115 @@
+name: Uygulamayı derle
+
+# main dalına her gönderimde macOS ve Windows sürümleri derlenir ve
+# VERSION dosyasındaki numarayla Releases sayfasında yayınlanır (örn. v1.0.0).
+on:
+  push:
+    branches: [main]
+    tags: ["v*"]
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+concurrency:
+  group: release-${{ github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  build:
+    strategy:
+      fail-fast: false
+      matrix:
+        include:
+          - os: macos-latest
+            asset: Turkiye-Kameralari-macOS.zip
+          - os: windows-latest
+            asset: Turkiye-Kameralari-Windows.zip
+    runs-on: ${{ matrix.os }}
+    defaults:
+      run:
+        shell: bash
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+
+      - name: Paketleri kur
+        run: |
+          python -m pip install --upgrade pip
+          python -m pip install -r requirements.txt pyinstaller
+
+      - name: Yapay zekâ modellerini indir
+        run: |
+          mkdir -p models
+          python -c "from ultralytics import YOLO; YOLO('models/yolo11s.pt')"
+          curl -fsSL -o models/vittrack.onnx "https://media.githubusercontent.com/media/opencv/opencv_zoo/main/models/object_tracking_vittrack/object_tracking_vittrack_2023sep.onnx"
+          ls -la models
+
+      - name: Kod denetimi
+        run: |
+          python -m pip install pyflakes
+          python -m pyflakes turkiye_kameralari main.py
+
+      - name: Uygulamayı derle
+        run: pyinstaller --noconfirm --clean TurkiyeKameralari.spec
+
+      - name: macOS paketini hazırla
+        if: runner.os == 'macOS'
+        run: |
+          APP="dist/Türkiye Kameraları.app"
+          codesign --force --deep --sign - "$APP"
+          ditto -c -k --keepParent "$APP" "${{ matrix.asset }}"
+
+      - name: Windows paketini hazırla
+        if: runner.os == 'Windows'
+        run: |
+          mv dist/TurkiyeKameralari "dist/Turkiye Kameralari"
+          cd dist && 7z a -tzip -mx=5 "../${{ matrix.asset }}" "Turkiye Kameralari" > /dev/null
+
+      - uses: actions/upload-artifact@v4
+        with:
+          name: ${{ matrix.asset }}
+          path: ${{ matrix.asset }}
+          compression-level: 0
+
+  release:
+    needs: build
+    if: github.event_name == 'push'
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Sürüm numarası
+        id: v
+        run: |
+          if [[ "$GITHUB_REF" == refs/tags/* ]]; then echo "tag=${GITHUB_REF#refs/tags/}" >> "$GITHUB_OUTPUT";
+          else echo "tag=v$(tr -d '[:space:]' < VERSION)" >> "$GITHUB_OUTPUT"; fi
+
+      - name: Sürüm etiketini bu commit'e taşı
+        run: |
+          git tag -f "${{ steps.v.outputs.tag }}"
+          git push -f origin "refs/tags/${{ steps.v.outputs.tag }}"
+
+      - uses: actions/download-artifact@v4
+        with:
+          path: out
+          merge-multiple: true
+
+      - uses: softprops/action-gh-release@v2
+        with:
+          tag_name: ${{ steps.v.outputs.tag }}
+          name: Türkiye Kameraları ${{ steps.v.outputs.tag }}
+          target_commitish: ${{ github.sha }}
+          make_latest: true
+          body: |
+            **İndir:**
+            - **macOS** (Apple Silicon M1/M2/M3/M4): `Turkiye-Kameralari-macOS.zip` → aç → `Türkiye Kameraları.app`'i Uygulamalar'a sürükle → çift tıkla
+            - **Windows 10/11:** `Turkiye-Kameralari-Windows.zip` → sağ tık → **Tümünü ayıkla** → `Turkiye Kameralari` klasöründeki `TurkiyeKameralari.exe`'ye çift tıkla
+
+            İlk açılışta uyarı çıkarsa: macOS'ta Sistem Ayarları → Gizlilik ve Güvenlik → **Yine de Aç**; Windows'ta **Ek bilgi → Yine de çalıştır**.
+          files: |
+            out/Turkiye-Kameralari-macOS.zip
+            out/Turkiye-Kameralari-Windows.zip
