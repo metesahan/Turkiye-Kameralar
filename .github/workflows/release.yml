@@ -56,6 +56,17 @@ jobs:
       - name: Uygulamayı derle
         run: pyinstaller --noconfirm --clean TurkiyeKameralari.spec
 
+      - name: Paketlenmiş uygulamayı sına
+        run: |
+          if [ "$RUNNER_OS" = "macOS" ]; then
+            EXE="dist/Türkiye Kameraları.app/Contents/MacOS/TurkiyeKameralari"
+          else
+            EXE="dist/TurkiyeKameralari/TurkiyeKameralari.exe"
+          fi
+          "$EXE" --self-test "$PWD/self-test.txt" || STATUS=$?
+          cat self-test.txt
+          exit ${STATUS:-0}
+
       - name: macOS paketini hazırla
         if: runner.os == 'macOS'
         run: |
